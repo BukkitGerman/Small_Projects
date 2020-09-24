@@ -26,6 +26,24 @@ Object.prototype.map = function(mapFn) {
 	}, {})
 }
 
+Object.prototype.to2d = function() {
+	let ary = Object.keys(this).map(k => [k, this[k]])
+	return ary.filter(v => v[0] != "undefined")
+}
+
+Array.prototype.to3d = function(){
+	let obj = {}
+	this.forEach(e => obj[e[0]] = e[1])
+	return obj
+}
+
+Object.prototype.values = function() {
+	return Object.values(this)
+}
+Object.prototype.keys = function() {
+	return Object.keys(this)
+}
+
 var uptime
 
 var result = []
@@ -69,6 +87,27 @@ fetch('stats.csv')
 		count++;
 	})
 
+	online = uptime
+		.to2d()
+		.map(v => {
+			v[0] = v[0].split(":")
+			return v
+		})
+		.groupBy(x => x[0][1])
+		.to2d()
+		.map(day => {
+			day[1] = day[1].map(v => v[1][0])
+			return day
+		})
+		.map(v => {
+			v[1] = v[1].reduce((a,b) => (a+b)/2)
+			return v
+		})
+		.to3d()
+	time = online.keys()
+	online = online.values()
+
+
 
 	online.forEach(values => {
 
@@ -96,7 +135,7 @@ fetch('stats.csv')
 
 	console.log(colors)
 
-	var ctx = document.getElementById('myChart').getContext('2d');
+	var ctx = document.getElementById('uptime').getContext('2d');
 	var myChart = new Chart(ctx, {
 		type: 'bar',
 		data: {
@@ -112,10 +151,25 @@ fetch('stats.csv')
 			}]
 		},
 		options: {
+			legend: {
+            	labels: {
+                	defaultFontFamily: "'Comic Neue', cursive",		
+                	fontColor: 'black'
+            	}
+        	},
+			responsive: true,
+    		maintainAspectRatio: false,
 			scales: {
 				yAxes: [{
 					ticks: {
-						beginAtZero: true
+						beginAtZero: true,	
+						fontSize: 22,
+						
+					}
+				}],
+				xAxes: [{
+					ticks: {
+						fontSize: 22
 					}
 				}]
 			}
