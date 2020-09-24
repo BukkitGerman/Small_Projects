@@ -2,9 +2,19 @@
   margin: 0;
   padding: 0; }
 
-canvas#uptime {
-  left: 0px;
-  width: 50vw !important;
-  height: 50vh !important; }
+h1 {
+  margin: 1rem none 1rem none;
+  width: 100wv;
+  text-align: center; }
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around; }
+  .container canvas {
+    width: 43vw !important;
+    height: 43vh !important;
+    width: 40vw !important;
+    height: 40vh !important; }
 
 /*# sourceMappingURL=style.css.map */

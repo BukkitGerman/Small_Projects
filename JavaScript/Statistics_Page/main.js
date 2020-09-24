@@ -48,7 +48,7 @@ var uptime
 
 var result = []
 
-fetch('stats.csv')
+fetch('https://status.gamer4life.net/download/stats.csv')
 .then(response => response.text())
 .then(resolve => {
 	let status = resolve
@@ -136,6 +136,46 @@ fetch('stats.csv')
 	console.log(colors)
 
 	var ctx = document.getElementById('uptime').getContext('2d');
+	var myChart = new Chart(ctx, {
+		type: 'bar',
+		data: {
+			labels: time,	
+			datasets: [{
+				label: 'Server Uptime',
+				barPercentage: 0.5,
+				backgroundColor: colors,
+				barThickness: 6,
+				maxBarThickness: 8,
+				minBarLength: 2,
+				data: online
+			}]
+		},
+		options: {
+			legend: {
+            	labels: {
+                	defaultFontFamily: "'Comic Neue', cursive",		
+                	fontColor: 'black'
+            	}
+        	},
+			responsive: true,
+    		maintainAspectRatio: false,
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true,	
+						fontSize: 22,
+						
+					}
+				}],
+				xAxes: [{
+					ticks: {
+						fontSize: 22
+					}
+				}]
+			}
+		},
+	});
+		var ctx = document.getElementById('usercount').getContext('2d');
 	var myChart = new Chart(ctx, {
 		type: 'bar',
 		data: {
