@@ -102,6 +102,7 @@ fetch('stats.csv')
 		data: {
 			labels: time,	
 			datasets: [{
+				label: 'Server Uptime',
 				barPercentage: 0.5,
 				backgroundColor: colors,
 				barThickness: 6,
