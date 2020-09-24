@@ -48,7 +48,7 @@ var uptime
 
 var result = []
 
-fetch('https://status.gamer4life.net/download/stats.csv')
+fetch('https://status.gamer4life.net/download/uptime.csv')
 .then(response => response.text())
 .then(resolve => {
 	let status = resolve

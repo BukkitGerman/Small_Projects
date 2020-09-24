@@ -10,6 +10,6 @@ result = JSON.parse(Net::HTTP.get(URI.parse(uri)))
 time = Time.now
 timestamp = time.month.to_s + ":" + time.day.to_s << ":" + time.hour.to_s
 
-CSV.open("stats.csv", "a+") do |csv|
+CSV.open("uptime.csv", "a+") do |csv|
 		csv << [timestamp, result["status"]]
 end
