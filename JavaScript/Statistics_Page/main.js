@@ -37,6 +37,27 @@ Array.prototype.to3d = function(){
 	return obj
 }
 
+// Array.prototype.reduce2d = function() {
+// 	arr1 = []
+// 	arr2 = []
+// 	this.forEach((item, index) => {
+// 		arr1.push(item[0])
+// 		arr2.push(item[1])
+// 	})
+
+// 	arr1.forEach((item, index) => {
+// 		if(arr1.length > 1)
+// 		arr1.splice(1, index);
+// 	})
+// 	console.log(arr2)
+// 	arr2.forEach((item, index) => {
+
+// 	})
+// 	console.log(arr2)
+// 	console.log(arr1)
+// 	return [arr1, arr2]
+// }
+
 Object.prototype.values = function() {
 	return Object.values(this)
 }
@@ -48,7 +69,7 @@ var uptime
 
 var result = []
 
-fetch('https://status.gamer4life.net/download/uptime.csv')
+fetch('https://status.gamer4life.net/download/stats.csv')
 .then(response => response.text())
 .then(resolve => {
 	let status = resolve
@@ -133,15 +154,13 @@ fetch('https://status.gamer4life.net/download/uptime.csv')
 				colors.push("#32bd32");
 	})
 
-	console.log(colors)
-
 	var ctx = document.getElementById('uptime').getContext('2d');
 	var myChart = new Chart(ctx, {
 		type: 'bar',
 		data: {
 			labels: time,	
 			datasets: [{
-				label: 'Server Uptime',
+				label: 'Server Uptime in ∅%',
 				barPercentage: 0.5,
 				backgroundColor: colors,
 				barThickness: 6,
@@ -163,56 +182,104 @@ fetch('https://status.gamer4life.net/download/uptime.csv')
 				yAxes: [{
 					ticks: {
 						beginAtZero: true,	
-						fontSize: 22,
+						fontSize: 20,
 						
 					}
 				}],
 				xAxes: [{
 					ticks: {
-						fontSize: 22
-					}
-				}]
-			}
-		},
-	});
-		var ctx = document.getElementById('usercount').getContext('2d');
-	var myChart = new Chart(ctx, {
-		type: 'bar',
-		data: {
-			labels: time,	
-			datasets: [{
-				label: 'Server Uptime',
-				barPercentage: 0.5,
-				backgroundColor: colors,
-				barThickness: 6,
-				maxBarThickness: 8,
-				minBarLength: 2,
-				data: online
-			}]
-		},
-		options: {
-			legend: {
-            	labels: {
-                	defaultFontFamily: "'Comic Neue', cursive",		
-                	fontColor: 'black'
-            	}
-        	},
-			responsive: true,
-    		maintainAspectRatio: false,
-			scales: {
-				yAxes: [{
-					ticks: {
-						beginAtZero: true,	
-						fontSize: 22,
-						
-					}
-				}],
-				xAxes: [{
-					ticks: {
-						fontSize: 22
+						fontSize: 20
 					}
 				}]
 			}
 		},
 	});
 })
+
+
+fetch('https://status.gamer4life.net/download/numberofusers.csv')
+.then(response => response.text())
+.then(resolve => {
+	let status = resolve
+		.split('\r')
+		.join("")
+		.split('\n')
+		.join(",")
+		.split(",");
+
+	uptime = status
+		.chunk(2)
+		.groupBy(v => v[0])
+
+
+		user_c = uptime
+		.to2d()
+		.map(v => {
+			v[0] = v[0].split(":")
+			return v
+		})
+		.groupBy(x => x[0][1])
+		.to2d()
+		 .map(day => {
+		 	day[1] = day[1].map(v => v[1][0])
+		 	return day
+		 })
+		 .map(v => {
+		 	console.log("v1", v)
+		 	// v[1] = v[1].reduce((a, b) => {
+		 	// 	console.log("a", a)
+		 	// 	return ((a+b)/2)
+		 	// })
+		 	return v
+		 })
+		 //.map(y => console.log(y))
+		// .to3d()
+
+		console.log(user_c)
+
+		var ctx = document.getElementById('usercount').getContext('2d');
+		var myChart = new Chart(ctx, {
+		type: 'line',
+		data: {
+			labels: Object.keys(uptime),	
+			datasets: [{
+				label: 'Number of Users ∅',
+				barPercentage: 0.5,
+				borderColor: "#ef9200",
+				backgroundColor: "transparent",
+				barThickness: 6,
+				maxBarThickness: 8,
+				minBarLength: 2,
+				data: "test"
+			}]
+		},
+		options: {
+			legend: {
+            	labels: {
+                	defaultFontFamily: "'Comic Neue', cursive",		
+                	fontColor: 'black'
+            	}
+        	},
+			responsive: true,
+    		maintainAspectRatio: false,
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true,
+						max: 32,
+						min: 1,
+						fontSize: 22,
+						
+					}
+				}],
+				xAxes: [{
+					ticks: {
+						fontSize: 22
+					}
+				}]
+			}
+		},
+	});
+
+})
+
