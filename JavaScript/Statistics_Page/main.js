@@ -224,24 +224,33 @@ fetch('https://status.gamer4life.net/download/numberofusers.csv')
 		 	day[1] = day[1].map(v => v[1][0])
 		 	return day
 		 })
+
+		 user_c_day = user_c
 		 .map(v => {
-		 	console.log("v1", v)
-		 	// v[1] = v[1].reduce((a, b) => {
-		 	// 	console.log("a", a)
-		 	// 	return ((a+b)/2)
-		 	// })
+		 	sum = 0;
+		 	c = 0;
+		 	 v[1] = v[1].map(x => {
+		 	 	sum += Number(x[1])
+		 	 	c++;
+		 	 })
+		 	 v[1] = Math.round(((sum/c)*100)/100);
 		 	return v
 		 })
-		 //.map(y => console.log(y))
-		// .to3d()
 
-		console.log(user_c)
+		 user_c_day_us = []
+		 user_c_day_ti = []
+
+		 user_c_day.forEach(i => {
+		 	user_c_day_us.push(i[1])
+		 	user_c_day_ti.push(i[0])
+		 })
+		console.log("user_c_day", user_c_day)
 
 		var ctx = document.getElementById('usercount').getContext('2d');
 		var myChart = new Chart(ctx, {
 		type: 'line',
 		data: {
-			labels: Object.keys(uptime),	
+			labels: user_c_day_ti,	
 			datasets: [{
 				label: 'Number of Users ∅',
 				barPercentage: 0.5,
@@ -250,7 +259,7 @@ fetch('https://status.gamer4life.net/download/numberofusers.csv')
 				barThickness: 6,
 				maxBarThickness: 8,
 				minBarLength: 2,
-				data: "test"
+				data: user_c_day_us
 			}]
 		},
 		options: {
@@ -267,7 +276,8 @@ fetch('https://status.gamer4life.net/download/numberofusers.csv')
 					ticks: {
 						beginAtZero: true,
 						max: 32,
-						min: 1,
+						min: 0,
+						stepSize: 4,
 						fontSize: 22,
 						
 					}
