@@ -37,26 +37,13 @@ Array.prototype.to3d = function(){
 	return obj
 }
 
-// Array.prototype.reduce2d = function() {
-// 	arr1 = []
-// 	arr2 = []
-// 	this.forEach((item, index) => {
-// 		arr1.push(item[0])
-// 		arr2.push(item[1])
-// 	})
+Array.prototype.reduceTo7 = function(){
+	while(this.length > 7){
+		this.shift();
+	}
+	return this;
+}
 
-// 	arr1.forEach((item, index) => {
-// 		if(arr1.length > 1)
-// 		arr1.splice(1, index);
-// 	})
-// 	console.log(arr2)
-// 	arr2.forEach((item, index) => {
-
-// 	})
-// 	console.log(arr2)
-// 	console.log(arr1)
-// 	return [arr1, arr2]
-// }
 
 Object.prototype.values = function() {
 	return Object.values(this)
@@ -127,7 +114,8 @@ fetch('https://status.gamer4life.net/download/uptime.csv')
 		.to3d()
 	time = online.keys()
 	online = online.values()
-
+	online.reduceTo7();
+	time.reduceTo7();
 
 
 	online.forEach(values => {
@@ -188,6 +176,8 @@ fetch('https://status.gamer4life.net/download/uptime.csv')
 				}],
 				xAxes: [{
 					ticks: {
+						min: 3,
+						max: 7,
 						fontSize: 20
 					}
 				}]
@@ -284,6 +274,8 @@ fetch('https://status.gamer4life.net/download/numberofusers.csv')
 				}],
 				xAxes: [{
 					ticks: {
+						min: 3,
+						max: 7,
 						fontSize: 22
 					}
 				}]
