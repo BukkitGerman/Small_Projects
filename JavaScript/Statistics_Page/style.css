@@ -7,14 +7,27 @@ h1 {
   width: 100wv;
   text-align: center; }
 
-.container {
+.outer-flex-con {
   display: flex;
-  flex-direction: row;
-  justify-content: space-around; }
-  .container canvas {
-    width: 43vw !important;
-    height: 43vh !important;
-    width: 40vw !important;
-    height: 40vh !important; }
+  flex-direction: row; }
+  .outer-flex-con .sidebar {
+    min-width: 20vw;
+    min-height: 100vh;
+    border-right: 1px solid #4f4f4f;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; }
+    .outer-flex-con .sidebar h2 {
+      align-self: flex-start;
+      margin-bottom: 1.2rem; }
+  .outer-flex-con .mon-con {
+    min-width: 80vw; }
+    .outer-flex-con .mon-con .container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around; }
+      .outer-flex-con .mon-con .container canvas {
+        width: 35vw !important;
+        height: 40vh !important; }
 
 /*# sourceMappingURL=style.css.map */

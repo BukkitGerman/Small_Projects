@@ -287,4 +287,16 @@ fetch('https://status.gamer4life.net/download/numberofusers.csv')
 
 
 
+let ons = document.querySelector('#online-status')
+let onus = document.querySelector('#online-users')
+
+setInterval(() => {
+	fetch('https://status.gamer4life.net/status.php')
+	.then(response => response.json())
+	.then(resolve => {
+		ons.innerHTML = resolve.status;
+		onus.innerHTML = resolve.user;
+	})
+}, 60000)
+	
 

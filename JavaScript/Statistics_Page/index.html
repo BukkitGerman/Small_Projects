@@ -6,10 +6,19 @@
 	<link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet">
 </head>
 <body>
-<h1>Monitoring</h1>
-<div class="container">
-	<canvas id="uptime" width="400" height="400"></canvas>
-	<canvas id="usercount" width="400" height="400"></canvas>
+<div class="outer-flex-con">
+	<div class="sidebar">
+		<h2>Life Statistics</h2>
+		<p>Server is currently <span id="online-status"></span></p> 
+		<p>Users currently online <span id="online-users"></span></p>
+	</div>
+	<div class="mon-con">
+		<h1>Monitoring</h1>
+		<div class="container">
+			<canvas id="uptime" width="400" height="400"></canvas>
+			<canvas id="usercount" width="400" height="400"></canvas>
+		</div>
+	</div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script type="text/javascript" src="main.js"></script>

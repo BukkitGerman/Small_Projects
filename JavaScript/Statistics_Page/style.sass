@@ -7,10 +7,25 @@ h1
 	width: 100wv
 	text-align: center
 
-.container
+.outer-flex-con
 	display: flex
-	flex-direction: row	
-	justify-content: space-around
-	canvas
-			width: 43vw !important
-			height: 4vh !important
+	flex-direction: row
+	.sidebar
+		min-width: 20vw
+		min-height: 100vh
+		border-right: 1px solid #4f4f4f
+		display: flex
+		flex-direction: column
+		justify-content: flex-start
+		h2
+			align-self: flex-start
+			margin-bottom: 1.2rem
+	.mon-con
+		min-width: 80vw
+		.container
+			display: flex
+			flex-direction: row	
+			justify-content: space-around
+			canvas
+					width: 35vw !important
+					height: 40vh !important
