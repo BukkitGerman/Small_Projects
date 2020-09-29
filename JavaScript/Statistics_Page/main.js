@@ -37,8 +37,8 @@ Array.prototype.to3d = function(){
 	return obj
 }
 
-Array.prototype.reduceTo7 = function(){
-	while(this.length > 7){
+Array.prototype.last = function(v){
+	while(this.length > v){
 		this.shift();
 	}
 	return this;
@@ -114,8 +114,8 @@ fetch('https://status.gamer4life.net/download/uptime.csv')
 		.to3d()
 	time = online.keys()
 	online = online.values()
-	online.reduceTo7();
-	time.reduceTo7();
+	online.last(7);
+	time.last(7);
 
 
 	online.forEach(values => {
@@ -284,4 +284,7 @@ fetch('https://status.gamer4life.net/download/numberofusers.csv')
 	});
 
 })
+
+
+
 
