@@ -14,6 +14,31 @@ Array.prototype.chunk = function(chunkSize) {
 	);
 }
 
+Array.prototype.SortDays = function(){
+	let array = this
+	let array2 = []
+	let lastitem = null;
+	if(((array[array.length-1][0]) == 30 || (array[array.length-1][0]) == 31) && array[0][0] == 1){
+		array.forEach((item, ind) => {
+			if(lastitem == null){
+				lastitem = item[0]
+			}else{
+				if((Number((lastitem))+1) != (Number(item[0]))){
+					for(let i = ind; i < array.length; i++){
+						array2.push(array[i])
+					}
+					array.splice(ind);
+					for(let i = 0; i < array.length; i++){
+						array2.push(array[i])
+					}
+				}
+			}
+			lastitem = item[0]
+		})
+	}
+	return array2
+}
+
 Object.prototype.map = function(mapFn) {
 	let that = this
 	return Object.keys(this).reduce(function(result, key) {
@@ -43,7 +68,6 @@ Array.prototype.last = function(v){
 	}
 	return this;
 }
-
 
 Object.prototype.values = function() {
 	return Object.values(this)
@@ -78,7 +102,6 @@ fetch('https://status.gamer4life.net/download/uptime.csv')
 		//.chunk(24)
 		//.values()
 
-
 	uptime.map(x => {
 		var count = 0;
 		for(var i = 0; i < x.length; i++){
@@ -112,13 +135,33 @@ fetch('https://status.gamer4life.net/download/uptime.csv')
 			return v
 		})
 		.to3d()
-	time = online.keys()
-	online = online.values()
-	online.last(7);
-	time.last(7);
+		
+
+	let sort = []
+	for(let index in online){
+		if(!isNaN(index)){
+			sort.push([index, online[index]])
+		}
+	}
+
+	sort = sort.SortDays();
+	let online_r = []
+	let time_r = []
+	sort.forEach((item, index) => {
+		time_r[index] = sort[index][0]
+		online_r[index] = sort[index][1]
+	})
 
 
-	online.forEach(values => {
+	online_r = online_r
+		.last(7);
+	time_r = time_r
+		.last(7);
+
+
+
+
+	online_r.forEach(values => {
 
 			if (values <= 30)
 				colors.push("#bd3232");
@@ -146,7 +189,7 @@ fetch('https://status.gamer4life.net/download/uptime.csv')
 	var myChart = new Chart(ctx, {
 		type: 'bar',
 		data: {
-			labels: time,	
+			labels: time_r,	
 			datasets: [{
 				label: 'Server Uptime in ∅%',
 				barPercentage: 0.5,
@@ -154,7 +197,7 @@ fetch('https://status.gamer4life.net/download/uptime.csv')
 				barThickness: 6,
 				maxBarThickness: 8,
 				minBarLength: 2,
-				data: online
+				data: online_r
 			}]
 		},
 		options: {
@@ -202,7 +245,7 @@ fetch('https://status.gamer4life.net/download/numberofusers.csv')
 		.groupBy(v => v[0])
 
 
-		user_c = uptime
+	user_c = uptime
 		.to2d()
 		.map(v => {
 			v[0] = v[0].split(":")
@@ -210,34 +253,37 @@ fetch('https://status.gamer4life.net/download/numberofusers.csv')
 		})
 		.groupBy(x => x[0][1])
 		.to2d()
-		 .map(day => {
-		 	day[1] = day[1].map(v => v[1][0])
-		 	return day
-		 })
+		.map(day => {
+			day[1] = day[1].map(v => v[1][0])
+			return day
+		})
 
-		 user_c_day = user_c
-		 .map(v => {
-		 	sum = 0;
-		 	c = 0;
-		 	 v[1] = v[1].map(x => {
-		 	 	sum += Number(x[1])
-		 	 	c++;
-		 	 })
-		 	 v[1] = Math.round(((sum/c)*100)/100);
-		 	return v
-		 })
+	user_c = user_c
+		.SortDays()
+		.last(7)
 
-		 user_c_day_us = []
-		 user_c_day_ti = []
 
-		 user_c_day.forEach(i => {
-		 	user_c_day_us.push(i[1])
-		 	user_c_day_ti.push(i[0])
-		 })
-		console.log("user_c_day", user_c_day)
+	user_c_day = user_c.map(v => {
+		sum = 0;
+		c = 0;
+		v[1] = v[1].map(x => {
+			sum += Number(x[1]-1)
+			c++;
+		})
+		v[1] = Math.round(((sum/c)*100)/100);
+		return v
+	})
 
-		var ctx = document.getElementById('usercount').getContext('2d');
-		var myChart = new Chart(ctx, {
+	user_c_day_us = []
+	user_c_day_ti = []
+
+	user_c_day.forEach(i => {
+		user_c_day_us.push(i[1])
+		user_c_day_ti.push(i[0])
+	})
+
+	var ctx = document.getElementById('usercount').getContext('2d');
+	var myChart = new Chart(ctx, {
 		type: 'line',
 		data: {
 			labels: user_c_day_ti,	
@@ -267,7 +313,122 @@ fetch('https://status.gamer4life.net/download/numberofusers.csv')
 						beginAtZero: true,
 						max: 32,
 						min: 0,
-						stepSize: 4,
+						stepSize: 2,
+						fontSize: 22,
+						
+					}
+				}],
+				xAxes: [{
+					ticks: {
+						min: 3,
+						max: 7,
+						fontSize: 22
+					}
+				}]
+			}
+		},
+	});
+
+})
+
+fetch('https://status.gamer4life.net/download/numberofusers.csv')
+.then(response => response.text())
+.then(resolve => {
+	let status = resolve
+		.split('\r')
+		.join("")
+		.split('\n')
+		.join(",")
+		.split(",");
+
+	uptime = status
+		.chunk(2)
+		.groupBy(v => v[0])
+
+
+		user_c = uptime
+		.to2d()
+		.map(v => {
+			v[0] = v[0].split(":")
+			return v
+		})
+		.groupBy(x => x[0][1])
+		.to2d()
+		
+		.map(day => {
+			day[1].map(hours => {
+				hours[1].map(hour => {
+					hour[0] = hour[0].split(":")
+					hour[0].shift()
+					hour[0] = hour[0].join(":")
+					return hour
+				})
+				return hours
+			})
+			return day
+		})
+		.SortDays()
+		.last(1)
+
+		user_c[0][1].map(x => {
+			let result = 0
+			let count = 0;
+			x[0].shift()
+			x[0] = x[0].join(":")
+			x[1].map(y => {
+				result += Number(y[1]-1)
+				count++;
+			})
+			x[1] = (result/count)
+			return x;
+		})
+
+		//console.log(user_c)
+		
+
+
+		 user_c_hour_us = []
+		 user_c_hour_ti = []
+
+		 user_c.forEach(i => {
+		 	i[1].forEach(j => {
+		 		user_c_hour_us.push(j[1])
+		 		user_c_hour_ti.push(j[0])
+		 	})
+		 })
+
+		var ctx = document.getElementById('usercount-h').getContext('2d');
+		var myChart = new Chart(ctx, {
+		type: 'line',
+		data: {
+			labels: user_c_hour_ti,	
+			datasets: [{
+				label: 'Number of Users ∅',
+				barPercentage: 0.5,
+				borderColor: "#ef9200",
+				backgroundColor: "transparent",
+				barThickness: 6,
+				maxBarThickness: 8,
+				minBarLength: 2,
+				data: user_c_hour_us
+			}]
+		},
+		options: {
+			legend: {
+            	labels: {
+                	defaultFontFamily: "'Comic Neue', cursive",		
+                	fontColor: 'black'
+            	}
+        	},
+			responsive: true,
+    		maintainAspectRatio: false,
+			scales: {
+				yAxes: [{
+					ticks: {
+						beginAtZero: true,
+						max: 32,
+						min: 0,
+						stepSize: 2,
 						fontSize: 22,
 						
 					}
