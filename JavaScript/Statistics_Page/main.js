@@ -456,7 +456,7 @@ setInterval(() => {
 	.then(response => response.json())
 	.then(resolve => {
 		ons.innerHTML = resolve.status;
-		onus.innerHTML = resolve.user;
+		onus.innerHTML = Number(resolve.user)-1;
 	})
 }, 60000)
 	
