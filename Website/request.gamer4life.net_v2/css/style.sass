@@ -1,0 +1,92 @@
+$primary: #efefef
+$secondary: #40739e
+
+* 
+	margin: 0px
+	padding: 0px
+	font-family: monospace, monospace
+
+body
+	background: $secondary
+
+
+.container
+	
+	//display: flex
+	//flex-direction: row
+	//justify-content: space-around
+	//align-items: center
+	position: absolute
+	transform: translate(-50%, -50%)
+	left: 50%
+	top: 50%
+	
+
+.item
+	display: flex
+	justify-content: center
+	color: #232323
+	margin-top: 10vh
+	margin-bottom: 10vh
+	width: 35vw
+	height: 80vh
+	background: $primary
+	box-shadow: -2px 2px 2px rgba(0, 0, 0, 0.2)
+
+	#headline
+		width: 100%
+
+	h1
+		text-align: center
+		min-width: auto
+		align-self: center
+		margin: 1rem 0 1rem 0
+		height: 8vh
+	h3
+		text-align: center
+		height: 6vh
+
+	#line
+		position: absolute
+		transform: translateX(-50%)
+		left: 50%
+		width: 100%
+		height: 2px
+		background: #eeeeee
+
+	#small
+		font-size: 60%
+		align-self: center
+		text-align: center
+
+	form
+		display: flex
+		flex-direction: column
+		align-items: right
+		width: 100%
+		height: 60vh
+
+		label
+			transform: translatex(-40%)	
+			margin-top: 1rem
+			align-self: center	
+
+		input
+			&[type="text"]
+				width: 180%
+				
+
+			&[type="submit"]
+				position: relative
+				margin-top: 12rem
+				align-self: center
+				color: #eeeeee
+				background: #5184af
+				width: 40%
+				height: 2.2rem
+				&:hover
+					cursor: crosshair
+
+			
+
+

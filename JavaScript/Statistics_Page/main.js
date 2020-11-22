@@ -450,6 +450,7 @@ fetch('https://status.gamer4life.net/download/numberofusers.csv')
 
 let ons = document.querySelector('#online-status')
 let onus = document.querySelector('#online-users')
+let ons_mc = document.querySelector('#online-status-mr')
 
 setInterval(() => {
 	fetch('https://status.gamer4life.net/status.php')
@@ -457,6 +458,7 @@ setInterval(() => {
 	.then(resolve => {
 		ons.innerHTML = resolve.status;
 		onus.innerHTML = Number(resolve.user)-1;
+		ons_mc.innerHTML = resolve.statusmc;
 	})
 }, 60000)
 	

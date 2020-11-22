@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%= title_tag %>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="BukkitGerman">
+  <meta name="language" content="english">
+  <meta name="robots" content="index,follow">
+  <%= description %>
+  <%= stylesheets %>
+  <%= javascripts %>
+</head>
+<body>
+  <section class="hero is-fullheight">
+    <header class="header hero-header">
+      <div class="container">
+        <div class="header-left">
+          <a class="header-item is-disabled" href="">
+           <strong><%= settings.appname %></strong>&nbsp;<span class="is-muted">v<%= settings.ver %></span>
+          </a>
+          <%= navbar %>
+        </div>
+      </div>
+    </header>
+  </section>
+  <%= yield %>
+</body>
+</html>

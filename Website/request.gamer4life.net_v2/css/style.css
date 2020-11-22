@@ -1,0 +1,70 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  font-family: monospace, monospace; }
+
+body {
+  background: #40739e; }
+
+.container {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 50%; }
+
+.item {
+  display: flex;
+  justify-content: center;
+  color: #232323;
+  margin-top: 10vh;
+  margin-bottom: 10vh;
+  width: 35vw;
+  height: 80vh;
+  background: #efefef;
+  box-shadow: -2px 2px 2px rgba(0, 0, 0, 0.2); }
+  .item #headline {
+    width: 100%; }
+  .item h1 {
+    text-align: center;
+    min-width: auto;
+    align-self: center;
+    margin: 1rem 0 1rem 0;
+    height: 8vh; }
+  .item h3 {
+    text-align: center;
+    height: 6vh; }
+  .item #line {
+    position: absolute;
+    transform: translateX(-50%);
+    left: 50%;
+    width: 100%;
+    height: 2px;
+    background: #eeeeee; }
+  .item #small {
+    font-size: 60%;
+    align-self: center;
+    text-align: center; }
+  .item form {
+    display: flex;
+    flex-direction: column;
+    align-items: right;
+    width: 100%;
+    height: 60vh; }
+    .item form label {
+      transform: translatex(-40%);
+      margin-top: 1rem;
+      align-self: center; }
+    .item form input[type="text"] {
+      width: 180%; }
+    .item form input[type="submit"] {
+      position: relative;
+      margin-top: 12rem;
+      align-self: center;
+      color: #eeeeee;
+      background: #5184af;
+      width: 40%;
+      height: 2.2rem; }
+      .item form input[type="submit"]:hover {
+        cursor: crosshair; }
+
+/*# sourceMappingURL=style.css.map */
