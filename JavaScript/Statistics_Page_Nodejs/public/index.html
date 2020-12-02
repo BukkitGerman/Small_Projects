@@ -5,9 +5,26 @@
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-<h1>Monitor</h1>
+<div class="wrapper">
+	<div class="container-box">
+		<div class="header">
+			 
+		</div>
+		<div class="container">
+			<div class="sidebar">
+				<button id="refresh">Fetch Data</button><br/>
+				<input type="number" id="ntof" name="ntof" min="7" max="1000" value="24" />
+			</div>
+			<div class="content">
+				<canvas class="chart" id="upper_chart"></canvas>
+				<canvas class="chart" id="lower_chart"></canvas>
+			</div>
+		</div>
+	</div>
+</div>
 
 <script src="https://cdn.socket.io/socket.io-3.0.1.min.js"></script>
-<script src="js/script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script src="js/main.js"></script>
 </body>
 </html>
