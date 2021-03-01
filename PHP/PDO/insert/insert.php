@@ -41,6 +41,8 @@ if(isset($_POST['nachname']) && isset($_POST['vorname'])){
    ];
    insertData($data, getDatabse());
    echo response("success", "Erfolgreich eingefügt!");
+}else{
+   echo response("error", "vorname oder nachname wurden fehlerhaft angegeben!");
 }
 
 
