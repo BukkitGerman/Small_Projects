@@ -27,7 +27,6 @@ document.querySelector("#btn").addEventListener("click", function () {
 const createTable  = (data) => {
     let header = data;
     let columns = ["#"];
-    console.log(columns);
     Object.keys(header[0]).map((e) => columns.push(e));
     const [table, thead, tbody, tr] = [document.createElement('table'), document.createElement('thead'), document.createElement('tbody'), document.createElement('tr')];
     table.classList.add('table', 'table-striped');
