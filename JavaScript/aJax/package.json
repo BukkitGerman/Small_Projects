@@ -1,0 +1,15 @@
+{
+  "name": "aJax",
+  "version": "1.0.0",
+  "description": "Mit dem terminal in den ornder navigieren, den befehl \"php -S localhost:1337\" ausführen und im Browser die seite http://localhost:1337/ aufrufen.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^4.2.2"
+  }
+}
