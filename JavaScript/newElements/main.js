@@ -25,12 +25,12 @@ document.querySelector("#btn").addEventListener("click", function () {
 //Create the Table with the response data from the aJax request
 
 const createTable  = (data) => {
-    let columns = ["id", "name", "email"]
-    const table = document.createElement('table');
-    const thead = document.createElement('thead');
-    const tbody = document.createElement('tbody');
-    const tr = document.createElement('tr');
-    table.classList.add('table');
+    let header = data;
+    let columns = ["#"];
+    console.log(columns);
+    Object.keys(header[0]).map((e) => columns.push(e));
+    const [table, thead, tbody, tr] = [document.createElement('table'), document.createElement('thead'), document.createElement('tbody'), document.createElement('tr')];
+    table.classList.add('table', 'table-striped');
     columns.map((entrie) => {
             const th = document.createElement('th');
             th.scope = 'col';
@@ -50,7 +50,7 @@ const createTable  = (data) => {
             td.innerHTML = `${e[i]}`;
             tr.appendChild(td);
         })
-        c++;    
+        c++;
         tbody.appendChild(tr);
     })
     table.appendChild(tbody);
