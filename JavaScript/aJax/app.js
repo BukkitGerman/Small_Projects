@@ -1,6 +1,6 @@
 document.querySelector('.div1').innerHTML = "\n<div class=\"card\">\n    <div class=\"card-body\">\n        Noch keine Daten vorhanden.\n    </div>\n</div>";
 document.querySelector("#btn").addEventListener("click", function () {
-    var server = "http://localhost:1337/server.php";
+    var server = "http://localhost:1337/server2.php";
     var xhr = new XMLHttpRequest();
     xhr.addEventListener("load", requestListener);
     xhr.open("POST", server, true);

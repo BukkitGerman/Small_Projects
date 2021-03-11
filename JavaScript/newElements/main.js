@@ -1,15 +1,22 @@
 //Add Button
 
 const btn = document.createElement('button');
+const div = document.createElement('div');
+div.id = 'time';
 btn.id = "btn";
 btn.classList.add("btn");
 btn.classList.add("btn-primary");
 btn.innerHTML = "ok";
 document.getElementById("header").appendChild(btn);
+document.getElementById("header").appendChild(div);
 
-//Button Event Listener and aJax Request
-document.querySelector("#btn").addEventListener("click", function () {
-    var server = "http://localhost:1337/server.php";
+clearInterval();
+setInterval(refreshData, 10000);
+document.querySelector("#btn").addEventListener("click", refreshData);
+
+function refreshData() {;
+    document.querySelector('#time').innerHTML = "Data From: "+getTime();
+    var server = "http://localhost:1337/server2.php";
     var xhr = new XMLHttpRequest();
     xhr.addEventListener("load", requestListener);
     xhr.open("POST", server, true);
@@ -20,11 +27,16 @@ document.querySelector("#btn").addEventListener("click", function () {
         var message = this.responseText;
         createTable(JSON.parse(message));
     }
-});
+}
 
+const getTime = () => {
+    var date_ob = new Date();
+    return ("0" + date_ob.getHours()).slice(-2)+":"+("0" + date_ob.getMinutes()).slice(-2)+":"+("0" + date_ob.getSeconds()).slice(-2)
+}
 //Create the Table with the response data from the aJax request
-
 const createTable  = (data) => {
+    if(document.querySelector('table'))
+        document.querySelector('#content').removeChild(document.querySelector('table'))
     let header = data;
     let columns = ["#"];
     Object.keys(header[0]).map((e) => columns.push(e));
