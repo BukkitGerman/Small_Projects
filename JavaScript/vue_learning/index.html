@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Vue</title>
+</head>
+<body>
+
+    <h3>Example 1</h3>
+
+    <div id="app">
+        {{ message }}
+    </div>
+
+    <h3>Example 2</h3>
+
+    <div id="app-2">
+        <span v-bind:title="title">
+            Hover your mouse over me for a few seconds
+            to see my dynamically bound title!
+
+            <p>{{ message }}</p>
+        </span>
+    </div>
+
+    <h3>Example 3</h3>
+
+    <div id="app-3">
+        <button v-on:click="toggle">Toggle</button>
+        <br>
+        <span v-if="seen">Now you see me</span>
+    </div>
+
+    <h3>Example 4</h3>
+
+    <div id="app-4">
+        <ol>
+            <li v-for="todo in todos">
+                {{ todo.text }}
+            </li>
+        </ol>
+    </div>
+
+    <div id="app-5">
+        <p>{{ message }}</p>
+        <button v-on:click="reverseMessage">Reverse Message</button>
+    </div>
+    <script src="js/vue.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
